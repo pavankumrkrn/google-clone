@@ -1,0 +1,30 @@
+.iCard {
+  cursor: pointer;
+  height: 25vh !important;
+}
+
+.related {
+  display: flex;
+  overflow-x: scroll;
+}
+::-webkit-scrollbar {
+  visibility: hidden ;
+}
+.imgSearch {
+  min-height: 100vh;
+}
+
+.rel {
+  border: 1px solid #ccc;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.rel:hover {
+  background-color: #ccc;
+}
+.und:hover {
+  text-decoration: underline;
+}
+.und {
+  cursor: pointer;
+}

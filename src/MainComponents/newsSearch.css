@@ -1,0 +1,15 @@
+.newsSearchBody {
+  min-height: 100vh;
+  padding-left: 10vw !important;
+}
+
+.imgCard {
+  height: 100% !important;
+}
+
+.news {
+  cursor: pointer;
+}
+.blue:hover {
+  color: #007bff;
+}

@@ -1,0 +1,9 @@
+.heading {
+  box-sizing: border-box !important;
+  padding-left: 11vw;
+}
+
+.body {
+  box-sizing: border-box !important;
+  padding-left: 9vw;
+}
