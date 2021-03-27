@@ -21,8 +21,15 @@ const getImageResults = async (text) => {
 }
 
 const getNewsResults = async (text) => {
-    const response = await fetch(urls.NEWS_SEARCH_URL(text))
-        .then((resp) => resp.json()).catch((error) => error.json());
+    const url = urls.NEWS_SEARCH_URL(text).url;
+    const key = urls.NEWS_SEARCH_URL(text).key;
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            "x-rapidapi-key": key,
+            "x-rapidapi-host": "newslit-news-search.p.rapidapi.com"
+        }
+    }).then((resp) => resp.json()).catch((error) => error.json());
     return response;
 }
 

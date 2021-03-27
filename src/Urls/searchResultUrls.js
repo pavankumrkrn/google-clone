@@ -8,7 +8,12 @@ const IMAGE_SEARCH_URL = (text) => {
     }
 }
 const ALL_SEARCH_URL = (text) => `https://www.googleapis.com/customsearch/v1?key=${keys.GOOGLE_API_KEY}&cx=b707857a43fcb3b68&q=${text}`
-const NEWS_SEARCH_URL = (text) => `https://newsapi.org/v2/everything?q=${text}&apiKey=${keys.NEWS_API_KEY}`
+const NEWS_SEARCH_URL = (text) => {
+    return {
+        url: `https://newslit-news-search.p.rapidapi.com/news?q=${text}`,
+        key: keys.NEWS_API_KEY
+    }
+}
 
 export {
     VIDEO_SEARCH_URL,
