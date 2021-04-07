@@ -6,10 +6,34 @@
 .related {
   display: flex;
   overflow-x: scroll;
+  padding-bottom: 2px;
 }
-::-webkit-scrollbar {
-  visibility: hidden ;
+
+.related::-webkit-scrollbar {
+  display: block;
+  width: 1px;
+  height: 3px !important;
 }
+.related::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.related::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-right: none;
+  border-left: none;
+}
+
+.related::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+  margin-bottom: 1px;
+}
+
+.related::-webkit-scrollbar-track-piece:start {
+  background: transparent;
+  margin-top: 10px;
+}
+
 .imgSearch {
   min-height: 100vh;
 }

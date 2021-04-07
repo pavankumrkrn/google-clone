@@ -25,10 +25,10 @@
   outline: none !important;
   width: 50vw !important;
 }
-.btn:hover {
+.homeBody>.btn:hover {
   border: 1px solid #ccc;
   background-color: white !important;
 }
-.btn {
+.homeBody>.btn {
   background-color: rgb(243, 243, 243) !important;
 }

@@ -21,7 +21,7 @@
 .item {
   display: flex;
   box-sizing: border-box;
-  width: 90px;
+  width: 100px;
   cursor: pointer;
 }
 .active {
@@ -32,22 +32,17 @@
   border-bottom: 1px solid #ccc;
   z-index: 999;
   background-color: white !important;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px 0 rgba(187, 187, 187, 0.2),
+    0 6px 20px 0 rgba(194, 188, 188, 0.19);
 }
 
-@media screen and (max-width: 1000px) {
-  .block {
-    display: none !important;
+@media screen and (max-width: 900px) {
+  .item {
+    width: 80px;
+    font-size: small;
   }
-}
-
-@media screen and (max-width: 600px) {
-  .change {
-    margin: auto;
-    margin-left: 30vw !important;
-    max-height: 55px;
-  }
-  .searchNavbar {
-    max-height: 200px;
+  .notchange,
+  .gg {
+    display: none;
   }
 }
