@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory, useParams } from "react-router";
+import { addToHistory } from "../APICalls/userOperations";
 import { MyContext } from "../Context/MyContext";
+import UserContext from "../Context/UserContext";
 import "./imageSearch.css";
 
 const ImageSearch = () => {
+  const [userInfo] = useContext(UserContext);
   const { type } = useParams();
   const { push } = useHistory();
-  const [result] = React.useContext(MyContext);
+  const [result] = useContext(MyContext);
+  const pushToHistory = async (title, link) => {
+    if (userInfo.user !== "" && userInfo.token !== "") {
+      const resp = await addToHistory(userInfo, title, link);
+      console.log(resp);
+    }
+  };
   React.useEffect(() => {}, [result]);
   console.log(result);
   return (
@@ -37,6 +46,7 @@ const ImageSearch = () => {
                   <div
                     className="card noBo mb-3"
                     onClick={() => {
+                      pushToHistory(i.hostPageDomainFriendlyName, i.contentUrl);
                       window.open(i.contentUrl);
                     }}
                   >

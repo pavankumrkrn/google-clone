@@ -33,9 +33,25 @@ const authenticate = async (user, type) => {
 
 const logout = async () => {};
 
-const addToHistory = async (userId) => {};
+const addToHistory = async (...params) => {
+  const [userData, title, link] = params;
+  const response = await fetch(URLS.ADD_TO_HISTORY, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ userData, title, link }),
+  }).then((resp) => resp.json());
 
-const getHistory = async (userId) => {};
+  return response;
+};
+
+const getHistory = async (userEmail) => {
+  const response = await fetch(
+    URLS.GET_HISTORY + "/" + userEmail
+  ).then((resp) => resp.json());
+  return response;
+};
 
 const removeFromHistory = async (userId) => {};
 

@@ -1,0 +1,12 @@
+.historyInput {
+  width: 40vw;
+}
+
+.history {
+  padding-left: 20px;
+}
+
+.hisEntry {
+  border-bottom: 1px solid #ccc;
+  padding-top: 10px;
+}

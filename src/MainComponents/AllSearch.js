@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
+import { addToHistory } from "../APICalls/userOperations";
 import { MyContext } from "../Context/MyContext";
+import UserContext from "../Context/UserContext";
 import "./AllSearch.css";
 
 export const AllSearch = () => {
-  const [result] = React.useContext(MyContext);
+  const [result] = useContext(MyContext);
+  const [userInfo] = useContext(UserContext);
   React.useEffect(() => {}, [result]);
+  const pushToHistory = async (title, link) => {
+    if (userInfo.user !== "" && userInfo.token !== "") {
+      const resp = await addToHistory(userInfo, title, link);
+      console.log(resp);
+    }
+  };
   return (
     <div className="allSearchBody">
       {result[0] !== undefined && result[0].items !== undefined ? (
@@ -23,6 +32,7 @@ export const AllSearch = () => {
                 className="card noBo mt-3 mb-3"
                 key={index}
                 onClick={() => {
+                  pushToHistory(i.displayLink, i.link);
                   window.open(i.link);
                 }}
               >

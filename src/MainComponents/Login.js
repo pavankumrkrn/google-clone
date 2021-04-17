@@ -6,7 +6,7 @@ import { authenticate } from "../APICalls/userOperations";
 import UserContext from "../Context/UserContext";
 
 export const Login = (props) => {
-  const [userContext, setuserContext] = useContext(UserContext);
+  const [userInfo, setUserInfo] = useContext(UserContext);
   const [mode, setMode] = React.useState(false);
   const [match, setMatch] = React.useState(false);
   const [name, setName] = React.useState("");
@@ -31,6 +31,8 @@ export const Login = (props) => {
         if (response.code === "green") {
           setMode(!mode);
         } else {
+          alert("SignUp Failed");
+          props.toggle();
         }
       }
     } else {
@@ -38,12 +40,16 @@ export const Login = (props) => {
       console.log(response);
       if (response.code === "green") {
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("userId", response.data.userId);
-        setuserContext({
-          userId: response.data.userId,
+        localStorage.setItem("userEmail", response.data.userEmail);
+        setUserInfo({
+          userEmail: response.data.userEmail,
           token: response.data.token,
         });
+        alert("Login SuccessFul");
+        props.toggle();
       } else {
+        alert("Login Failed");
+        props.toggle();
       }
     }
   };

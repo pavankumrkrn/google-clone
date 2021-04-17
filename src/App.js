@@ -3,12 +3,16 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./App.css";
 import { MyContext } from "./Context/MyContext";
 import UserContext from "./Context/UserContext";
+import History from "./MainComponents/History";
 import Home from "./MainComponents/Home";
 import Search from "./MainComponents/Search";
 
 function App() {
   const [context, setContext] = React.useState([]);
-  const [userContext, setuserContext] = useState({ userId: "", token: "" });
+  const [userContext, setuserContext] = useState({
+    userEmail: localStorage.getItem("userEmail"),
+    token: localStorage.getItem("token"),
+  });
 
   return (
     <UserContext.Provider value={[userContext, setuserContext]}>
@@ -23,6 +27,7 @@ function App() {
                 exact={true}
                 component={Search}
               />
+              <Route path={"/history"} exact={true} component={History} />
               <Route path={"/"} exact={true} component={Home} />
             </Switch>
           </BrowserRouter>

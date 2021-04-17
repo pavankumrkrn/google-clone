@@ -1,23 +1,31 @@
-import React from "react";
+import React, { useContext } from "react";
 import { MyContext } from "../Context/MyContext";
+import UserContext from "../Context/UserContext";
+import { addToHistory } from "../APICalls/userOperations";
 import "./newsSearch.css";
 
 const NewsSearch = () => {
-  const [news] = React.useContext(MyContext);
+  const [news] = useContext(MyContext);
+  const [userInfo] = useContext(UserContext);
   React.useEffect(() => {}, [news]);
-  console.log(news);
+  const pushToHistory = async (title, link) => {
+    if (userInfo.user !== "" && userInfo.token !== "") {
+      const resp = await addToHistory(userInfo, title, link);
+      console.log(resp);
+    }
+  };
   return (
     <div className="newsSearchBody">
       <div className="container">
         {news[0] !== undefined && news[0].results !== undefined
           ? news[0].results.stories.map((i, index) => {
-              console.log(i);
               return (
                 <div className="row mt-3" key={index}>
                   <div className="col-lg-8 col-md-10 col-sm-12">
                     <div
                       className="card news"
                       onClick={() => {
+                        pushToHistory(i.source, i.url);
                         window.open(i.url);
                       }}
                     >

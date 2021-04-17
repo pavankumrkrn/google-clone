@@ -1,9 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
+import { addToHistory } from "../APICalls/userOperations";
 import { MyContext } from "../Context/MyContext";
+import UserContext from "../Context/UserContext";
 import "./videoSearch.css";
 
 const VideoSearch = () => {
-  const [videos] = React.useContext(MyContext);
+  const [videos] = useContext(MyContext);
+  const [userInfo] = useContext(UserContext);
+  const pushToHistory = async (title, link) => {
+    if (userInfo.user !== "" && userInfo.token !== "") {
+      const resp = await addToHistory(userInfo, title, link);
+      console.log(resp);
+    }
+  };
   React.useEffect(() => {}, [videos]);
   return (
     <div className="videoSearchBody">
@@ -17,6 +26,10 @@ const VideoSearch = () => {
               <div
                 className="card noBo pointer mt-2 mb-2"
                 onClick={() => {
+                  pushToHistory(
+                    "youtube.com",
+                    "https://www.youtube.com/watch?v=" + i.id.videoId
+                  );
                   window.open(
                     "https://www.youtube.com/watch?v=" + i.id.videoId
                   );

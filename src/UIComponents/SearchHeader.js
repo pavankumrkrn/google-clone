@@ -4,19 +4,37 @@ import HistoryIcon from "@material-ui/icons/History";
 import ReceiptIcon from "@material-ui/icons/Receipt";
 import ImageSearchIcon from "@material-ui/icons/ImageSearch";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./searchHeader.css";
 import { useHistory, useParams } from "react-router-dom";
+import UserContext from "../Context/UserContext";
+import AlertModal from "../MainComponents/Alert";
+import LogoutModal from "../MainComponents/Logout";
+import { Login } from "../MainComponents/Login";
 
 const SearchHeader = () => {
-  const [isLogin, setisLogin] = useState(false);
+  const [userInfo, setUserInfo] = useContext(UserContext);
   const [modal, setmodal] = useState(false);
   const [open, setopen] = useState(false);
+  const [alert, setAlert] = useState(false);
   const params = useParams();
   const { push } = useHistory();
   const [text, setText] = React.useState(params.text);
   const toggle = () => setmodal(!modal);
   const toggleLogout = () => setopen(!open);
+  const toggleAlert = () => setAlert(!alert);
+  const seeHistory = () => {
+    if (userInfo.userEmail !== "" && userInfo.userEmail !== null) {
+      push("/history");
+    } else {
+      toggleAlert();
+    }
+  };
+  const handleText = () => {
+    if (text !== "") {
+    }
+    // push("/search/" + text + "/" + params.type);
+  };
   React.useEffect(() => {}, [params.type, params.text]);
   return (
     <div className="searchNavbar sticky-top">
@@ -46,7 +64,10 @@ const SearchHeader = () => {
                 className="gInput"
                 required
                 value={text}
-                onChange={(e) => setText(e.target.value)}
+                onChange={(e) => {
+                  setText(e.target.value);
+                  handleText();
+                }}
               />
             </div>
             <button type="submit" hidden></button>
@@ -56,9 +77,19 @@ const SearchHeader = () => {
           <li className="nav-item pointer">
             <a
               className="nav-link hnl"
-              onClick={!isLogin ? toggle : toggleLogout}
+              onClick={
+                userInfo.userEmail === "" || userInfo.userEmail === null
+                  ? toggle
+                  : toggleLogout
+              }
             >
-              <Tooltip title={!isLogin ? "login" : "logout"}>
+              <Tooltip
+                title={
+                  userInfo.userEmail === "" || userInfo.userEmail === null
+                    ? "login"
+                    : "logout"
+                }
+              >
                 <Avatar />
               </Tooltip>
             </a>
@@ -66,7 +97,7 @@ const SearchHeader = () => {
           <li className="nav-item pointer">
             <a className="nav-link hnl">
               <Tooltip title="My History">
-                <HistoryIcon />
+                <HistoryIcon onClick={seeHistory} />
               </Tooltip>
             </a>
           </li>
@@ -110,6 +141,13 @@ const SearchHeader = () => {
           </div>
         </div>
       </nav>
+      <Login modal={modal} toggle={toggle} />
+      <LogoutModal modal={open} toggle={toggleLogout} />
+      <AlertModal
+        modal={alert}
+        toggle={toggleAlert}
+        text={"Please login/Signup to access history"}
+      />
     </div>
   );
 };
